@@ -82,15 +82,15 @@
   /* Projects - 1 per row with taller image */
   .projects-grid { 
     display: flex; 
-    flex-direction: column; /* stack projects vertically */
-    gap: 30px; /* increased space between projects */
-    align-items: center; /* center the project card */
+    flex-direction: column; 
+    gap: 30px; 
+    align-items: center; 
   }
   .project-card { 
     width: 100%; 
-    max-width: 700px; /* wider project card */
+    max-width: 700px; 
     background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); 
-    padding: 20px; /* more padding */
+    padding: 20px; 
     border-radius:16px; 
     overflow:hidden; 
     border:1px solid rgba(255,255,255,0.03); 
@@ -103,14 +103,22 @@
     box-shadow: 0 20px 50px rgba(2,8,23,0.7); 
   }
   .project-media { 
-    height: 280px; /* taller image */
+    height: 280px;
     background-size:cover; 
     background-position:center; 
     border-radius:12px;
     margin-bottom: 16px;
   }
   .project-body { padding:16px; }
-  .tech { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+
+  /* Center project descriptions */
+  .project-body p {
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .tech { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; justify-content:center; }
   .chip { font-size:12px; padding:6px 8px; background: rgba(255,255,255,0.03); border-radius:999px; color:var(--muted); }
 
   /* Skills */
@@ -131,50 +139,44 @@
     .hero-card { flex-direction:column; }
     .nav { left:12px; transform:none; width:calc(100% - 24px); }
   }
+
   /* Mobile Nav */
-.menu-toggle {
-  display: none;
-  font-size: 26px;
-  color: white;
-  cursor: pointer;
-}
+	.menu-toggle {
+	  display: none;
+	  font-size: 26px;
+	  color: white;
+	  cursor: pointer;
+	}
 
-.project-body p {
-  color: var(--muted);
-  text-align: center;
-  line-height: 1.6;
-}
+	@media (max-width: 900px) {
+	  .nav-links {
+		position: absolute;
+		top: 70px;
+		right: 0;
+		width: 200px;
+		flex-direction: column;
+		background: rgba(15, 23, 42, 0.9);
+		backdrop-filter: blur(6px);
+		border-left: 1px solid rgba(255,255,255,0.05);
+		border-bottom: 1px solid rgba(255,255,255,0.05);
+		padding: 15px 18px;
+		border-radius: 0 0 12px 12px;
+		display: none;
+	  }
 
+	  .nav-links a {
+		padding: 12px;
+		border-radius: 8px;
+	  }
 
-@media (max-width: 900px) {
-  .nav-links {
-	position: absolute;
-	top: 70px;
-	right: 0;
-	width: 200px;
-	flex-direction: column;
-	background: rgba(15, 23, 42, 0.9);
-	backdrop-filter: blur(6px);
-	border-left: 1px solid rgba(255,255,255,0.05);
-	border-bottom: 1px solid rgba(255,255,255,0.05);
-	padding: 15px 18px;
-	border-radius: 0 0 12px 12px;
-	display: none;
-  }
+	  .nav-links.show {
+		display: flex;
+	  }
 
-  .nav-links a {
-	padding: 12px;
-	border-radius: 8px;
-  }
-
-  .nav-links.show {
-	display: flex;
-  }
-
-  .menu-toggle {
-	display: block;
-  }
-}
+	  .menu-toggle {
+		display: block;
+	  }
+	}
 
 </style>
 </head>
@@ -250,15 +252,6 @@
       image: "https://raw.githubusercontent.com/Akila-Bandara-24343/Akila-Bandara-24343.github.io/main/1752416328566.jpg",
       video: "https://www.linkedin.com/posts/akila-bandara-a60b04291_plc-automation-smartparking-activity-7350166823507546112-ldQa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEbSNOgBlbw2-llX7TFomidtBgh2tpamSoY"
     }
-	 /* 
-	  ,
-    {
-      title: "Smart Factory IoT Dashboard",
-      description: "Created an IoT monitoring system for factory equipment with predictive maintenance alerts using sensor data.",
-      tech: ["Python", "MQTT", "InfluxDB", "Grafana"],
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200",
-      video: "YOUR_YOUTUBE_LINK_HERE"
-    }*/
   ];
 
   const skills = [
@@ -281,8 +274,8 @@
       div.innerHTML = `
         <div class="project-media" style="background-image:url('${p.image}')"></div>
         <div class="project-body">
-          <h3 style="margin:0 0 6px;">${p.title}</h3>
-          <p style="margin:0; color:var(--muted);">${p.description}</p>
+          <h3 style="margin:0 0 6px; text-align:center;">${p.title}</h3>
+          <p>${p.description}</p>
           <div class="tech">
             ${p.tech.map(t => `<span class="chip">${t}</span>`).join('')}
           </div>
@@ -319,7 +312,6 @@
   menuToggle.addEventListener("click", () => {
     navLinks.classList.toggle("show");
 
-    // Toggle icon
     menuToggle.innerHTML = navLinks.classList.contains("show")
       ? '<i class="fa-solid fa-xmark"></i>'
       : '<i class="fa-solid fa-bars"></i>';
@@ -328,10 +320,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
